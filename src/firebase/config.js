@@ -10,7 +10,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyDldkebUj7s2-Ej8sOauImGD837IedrW8s",
   authDomain: "digitalizacionpyme-fae73.firebaseapp.com",
   projectId: "digitalizacionpyme-fae73",
-  storageBucket: "digitalizacionpyme-fae73.firebasestorage.app",
+  storageBucket: "digitalizacionpyme-fae73.appspot.com",
   messagingSenderId: "271434112035",
   appId: "1:271434112035:web:76885970c48baa5d226596"
 };

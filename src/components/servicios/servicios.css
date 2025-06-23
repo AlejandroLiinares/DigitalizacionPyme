@@ -146,6 +146,7 @@
   margin-top: 10px;
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .servicios-add-to-cart:hover {
@@ -159,6 +160,54 @@
 }
 
 .servicios-add-to-cart:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Estilos para servicios ya en el carrito */
+.servicios-in-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.servicios-in-cart-text {
+  font-size: 0.9rem;
+  color: #2c3e50;
+  font-weight: 500;
+  background-color: #e3f2fd;
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid #bbdefb;
+}
+
+.servicios-add-more {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.servicios-add-more:hover {
+  background-color: #1976D2;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.servicios-add-more:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.servicios-add-more:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
   box-shadow: none;

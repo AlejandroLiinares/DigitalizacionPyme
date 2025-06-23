@@ -1,15 +1,36 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './servicios.css';
-import { addDocument } from '../../firebase/config';
+import { useCarrito } from '../../context/CarritoContext';
 import ServicioCard from './servicioCard';
 
 function Servicios() {
   const [agregandoIds, setAgregandoIds] = useState({});
   const [mensaje, setMensaje] = useState({ texto: '', tipo: '' });
+  const { agregarAlCarrito: agregarServicioAlCarrito, isInCart } = useCarrito();
   
   // Función para agregar un servicio al carrito
   const agregarAlCarrito = async (nombre, categoria, precio = 50000) => {
+    if (!nombre || !categoria) {
+      console.error('Nombre o categoría no proporcionados');
+      setMensaje({
+        texto: 'Error: Datos del servicio incompletos',
+        tipo: 'error'
+      });
+      return;
+    }
+
+    // Asegurarse de que el precio sea un número válido
+    const precioNumerico = Number(precio);
+    if (isNaN(precioNumerico)) {
+      console.error('Precio no válido:', precio);
+      setMensaje({
+        texto: 'Error: Precio no válido',
+        tipo: 'error'
+      });
+      return;
+    }
+
     try {
       // Crear un ID único para este servicio basado en su nombre y categoría
       const servicioId = `${categoria}-${nombre}`.replace(/\s+/g, '-').toLowerCase();
@@ -17,22 +38,13 @@ function Servicios() {
       // Marcar este servicio específico como "agregando"
       setAgregandoIds(prev => ({ ...prev, [servicioId]: true }));
       
-      // Crear objeto del servicio
-      const servicio = {
-        nombre,
-        categoria,
-        precio,
-        cantidad: 1,
-        fechaAgregado: new Date()
-      };
+      // Agregar a través del contexto del carrito
+      const resultado = await agregarServicioAlCarrito(nombre, categoria, precioNumerico);
       
-      // Agregar a Firestore
-      await addDocument('carrito', servicio);
-      
-      // Mostrar mensaje de éxito
+      // Mostrar mensaje de resultado
       setMensaje({
-        texto: `¡${nombre} agregado al carrito!`,
-        tipo: 'exito'
+        texto: resultado.message,
+        tipo: resultado.success ? 'exito' : 'error'
       });
       
       // Limpiar mensaje después de 3 segundos
@@ -45,6 +57,11 @@ function Servicios() {
         texto: 'Error al agregar al carrito. Intente nuevamente.',
         tipo: 'error'
       });
+      
+      // Limpiar mensaje de error después de 5 segundos
+      setTimeout(() => {
+        setMensaje({ texto: '', tipo: '' });
+      }, 5000);
     } finally {
       // Desmarcar este servicio específico como "agregando"
       const servicioId = `${categoria}-${nombre}`.replace(/\s+/g, '-').toLowerCase();

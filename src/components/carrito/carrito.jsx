@@ -1,104 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './carrito.css';
-import { db, addDocument, getDocuments, updateDocument, deleteDocument } from '../../firebase/config';
+import { useCarrito } from '../../context/CarritoContext';
 
 const Carrito = () => {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [total, setTotal] = useState(0);
-
-  // Cargar items del carrito desde Firestore
-  useEffect(() => {
-    const cargarCarrito = async () => {
-      try {
-        setLoading(true);
-        const carritoItems = await getDocuments('carrito');
-        setItems(carritoItems);
-        calcularTotal(carritoItems);
-      } catch (error) {
-        console.error('Error al cargar el carrito:', error);
-        setError('No se pudo cargar el carrito. Intente nuevamente.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    cargarCarrito();
-  }, []);
-
-  // Calcular el total del carrito
-  const calcularTotal = (items) => {
-    const nuevoTotal = items.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-    setTotal(nuevoTotal);
-  };
-
-  // Actualizar cantidad de un item
-  const actualizarCantidad = async (id, nuevaCantidad) => {
-    if (nuevaCantidad < 1) return;
-
-    try {
-      const itemIndex = items.findIndex(item => item.id === id);
-      if (itemIndex !== -1) {
-        const itemActualizado = { ...items[itemIndex], cantidad: nuevaCantidad };
-        await updateDocument('carrito', id, { cantidad: nuevaCantidad });
-        
-        const nuevosItems = [...items];
-        nuevosItems[itemIndex] = itemActualizado;
-        setItems(nuevosItems);
-        calcularTotal(nuevosItems);
-      }
-    } catch (error) {
-      console.error('Error al actualizar cantidad:', error);
-      setError('No se pudo actualizar el producto. Intente nuevamente.');
-    }
-  };
-
-  // Eliminar un item del carrito
-  const eliminarItem = async (id) => {
-    try {
-      await deleteDocument('carrito', id);
-      const nuevosItems = items.filter(item => item.id !== id);
-      setItems(nuevosItems);
-      calcularTotal(nuevosItems);
-    } catch (error) {
-      console.error('Error al eliminar producto:', error);
-      setError('No se pudo eliminar el producto. Intente nuevamente.');
-    }
-  };
-
-  // Vaciar el carrito
-  const vaciarCarrito = async () => {
-    try {
-      // Eliminar todos los documentos del carrito
-      const promesas = items.map(item => deleteDocument('carrito', item.id));
-      await Promise.all(promesas);
-      setItems([]);
-      setTotal(0);
-    } catch (error) {
-      console.error('Error al vaciar el carrito:', error);
-      setError('No se pudo vaciar el carrito. Intente nuevamente.');
-    }
-  };
-
-  // Procesar la compra
-  const procesarCompra = async () => {
-    try {
-      // Aquí se podría implementar la lógica para procesar la compra
-      // Por ejemplo, crear un documento de pedido y vaciar el carrito
-      await addDocument('pedidos', {
-        items: items,
-        total: total,
-        fecha: new Date(),
-        estado: 'pendiente'
-      });
-      
-      await vaciarCarrito();
-      alert('¡Compra realizada con éxito! Nos pondremos en contacto contigo pronto.');
-    } catch (error) {
-      console.error('Error al procesar la compra:', error);
-      setError('No se pudo procesar la compra. Intente nuevamente.');
+  const { items, loading, error, total, actualizarCantidad, eliminarItem, vaciarCarrito, procesarCompra } = useCarrito();
+  const [mensajeCompra, setMensajeCompra] = useState({ mostrar: false, texto: '', tipo: '' });
+  
+  // Manejar la finalización de compra
+  const handleProcesarCompra = async () => {
+    const resultado = await procesarCompra();
+    
+    setMensajeCompra({
+      mostrar: true,
+      texto: resultado.message,
+      tipo: resultado.success ? 'exito' : 'error'
+    });
+    
+    if (resultado.success) {
+      // Ocultar el mensaje después de 5 segundos si fue exitoso
+      setTimeout(() => {
+        setMensajeCompra({ mostrar: false, texto: '', tipo: '' });
+      }, 5000);
     }
   };
 
@@ -115,7 +38,19 @@ const Carrito = () => {
     return (
       <div className="carrito-container">
         <h2 className="carrito-titulo">Carrito de Compras</h2>
-        <p className="carrito-error">{error}</p>
+        <div className="carrito-mensaje carrito-mensaje-error">{error}</div>
+        <Link to="/servicios" className="carrito-volver-btn">Seguir comprando</Link>
+      </div>
+    );
+  }
+  
+  if (mensajeCompra.mostrar) {
+    return (
+      <div className="carrito-container">
+        <h2 className="carrito-titulo">Carrito de Compras</h2>
+        <div className={`carrito-mensaje ${mensajeCompra.tipo === 'error' ? 'carrito-mensaje-error' : 'carrito-mensaje-exito'}`}>
+          {mensajeCompra.texto}
+        </div>
         <Link to="/servicios" className="carrito-volver-btn">Volver a Servicios</Link>
       </div>
     );
@@ -186,7 +121,7 @@ const Carrito = () => {
               
               <button 
                 className="carrito-comprar-btn"
-                onClick={procesarCompra}
+                onClick={handleProcesarCompra}
               >
                 Finalizar Compra
               </button>
