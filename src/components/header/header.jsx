@@ -19,8 +19,8 @@ function Header() {
       try {
         setLoading(true);
         const items = await getDocuments('carrito');
-        setCartItems(items);
-        setCartCount(items.length);
+        setCartItems(items || []);
+        setCartCount(items ? items.length : 0);
       } catch (error) {
         console.error('Error al cargar el carrito:', error);
       } finally {
@@ -33,7 +33,9 @@ function Header() {
     // Actualizar el carrito cada 30 segundos para mantenerlo sincronizado
     const intervalId = setInterval(loadCartItems, 30000);
     
-    return () => clearInterval(intervalId);
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
   return (

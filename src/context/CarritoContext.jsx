@@ -15,37 +15,52 @@ export const CarritoProvider = ({ children }) => {
   const [total, setTotal] = useState(0);
   const [itemCount, setItemCount] = useState(0);
 
-  // Cargar items del carrito desde Firestore
-  useEffect(() => {
-    const cargarCarrito = async () => {
-      try {
-        setLoading(true);
-        setError(null); // Limpiar errores anteriores
-        const carritoItems = await getDocuments('carrito');
+  // Cargar el carrito desde Firestore al inicio
+  const cargarCarrito = async () => {
+    // Limpiar errores previos
+    setError(null);
+    
+    try {
+      setLoading(true);
+      
+      const carritoItems = await getDocuments('carrito');
+      
+      // Validar que los datos recibidos sean un arreglo válido
+      if (Array.isArray(carritoItems)) {
+        setItems(carritoItems);
         
-        // Verificar si los datos son válidos
-        if (Array.isArray(carritoItems)) {
-          setItems(carritoItems);
-          calcularTotal(carritoItems);
-          setItemCount(carritoItems.length);
-        } else {
-          console.error('Formato de datos incorrecto:', carritoItems);
-          setItems([]);
-          setItemCount(0);
-          setTotal(0);
-        }
-      } catch (error) {
-        console.error('Error al cargar el carrito:', error);
-        setError('No se pudo cargar el carrito. Intente nuevamente.');
+        // Calcular el total y el número de items
+        const nuevoTotal = carritoItems.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+        const nuevoItemCount = carritoItems.reduce((sum, item) => sum + item.cantidad, 0);
+        
+        setTotal(nuevoTotal);
+        setItemCount(nuevoItemCount);
+      } else {
+        // Si no es un arreglo válido, inicializar con un arreglo vacío
         setItems([]);
-        setItemCount(0);
         setTotal(0);
-      } finally {
-        setLoading(false);
+        setItemCount(0);
       }
-    };
-
+    } catch (error) {
+      console.error('Error al cargar el carrito:', error);
+      setError('No se pudo cargar el carrito');
+      
+      // En caso de error, limpiar el estado para evitar datos inconsistentes
+      setItems([]);
+      setTotal(0);
+      setItemCount(0);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  useEffect(() => {
     cargarCarrito();
+    
+    // Actualizar el carrito cada 30 segundos para mantenerlo sincronizado
+    const intervalId = setInterval(cargarCarrito, 30000);
+    
+    return () => clearInterval(intervalId);
   }, []);
 
   // Calcular el total del carrito
