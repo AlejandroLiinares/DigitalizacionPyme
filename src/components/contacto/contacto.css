@@ -1,0 +1,222 @@
+/* Estilos específicos para el componente Contacto */
+
+.contacto-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: 'Arial', sans-serif;
+  position: relative;
+}
+
+/* Sección Hero */
+.contacto-hero-section {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 4rem 1rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contacto-hero-section::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(52, 152, 219, 0.1);
+  z-index: 0;
+}
+
+.contacto-hero-section::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: -30px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(52, 152, 219, 0.05);
+  z-index: 0;
+}
+
+.contacto-title {
+  font-size: 2.8rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+  letter-spacing: -0.5px;
+}
+
+.contacto-subtitle {
+  font-size: 1.2rem;
+  color: #5a6a7e;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Sección del formulario */
+.contacto-form-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.contacto-form-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.contacto-form-container:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  border-color: rgba(52, 152, 219, 0.2);
+}
+
+.contacto-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contacto-form-group {
+  margin-bottom: 1.8rem;
+}
+
+.contacto-form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #2c3e50;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+}
+
+.contacto-form-input,
+.contacto-form-textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #dcdfe6;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+}
+
+.contacto-form-input:focus,
+.contacto-form-textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  background-color: #ffffff;
+}
+
+.contacto-form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contacto-form-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contacto-form-button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Sección de información de contacto */
+.contacto-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contacto-info-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.contacto-info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  border-color: rgba(52, 152, 219, 0.2);
+}
+
+.contacto-info-title {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.contacto-info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.contacto-info-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  color: #3498db;
+}
+
+.contacto-info-text {
+  font-size: 1rem;
+  color: #5a6a7e;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .contacto-form-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .contacto-info-container {
+    margin-top: 2rem;
+  }
+  
+  .contacto-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contacto-hero-section,
+  .contacto-form-container,
+  .contacto-info-card {
+    padding: 1.5rem 1rem;
+  }
+  
+  .contacto-title {
+    font-size: 1.8rem;
+  }
+  
+  .contacto-form-submit {
+    padding: 0.8rem;
+  }
+}

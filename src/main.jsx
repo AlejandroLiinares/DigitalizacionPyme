@@ -1,25 +1,35 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './index.css';
+import Home from './components/home/home';
+import Servicios from './components/servicios/servicios';
+import Contacto from './components/contacto/contacto';
+import Carrito from './components/carrito/carrito';
+import Header from './components/header/header';
+import WhatsAppButton from './components/whatsappButton/whatsappButton';
+
+function App() {
+  return (
+    <Router>
+      <div>
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/servicios" element={<Servicios />} />
+            <Route path="/contacto" element={<Contacto />} />
+            <Route path="/carrito" element={<Carrito />} />
+          </Routes>
+        </main>
+        <WhatsAppButton />
+      </div>
+    </Router>
+  );
+}
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
-)
-
-// Register Service Worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', async () => {
-    try {
-      const registration = await navigator.serviceWorker.register(
-        import.meta.env.MODE === 'production' ? '/sw.js' : '/dev-sw.js?dev-sw',
-        { type: import.meta.env.MODE === 'production' ? 'classic' : 'module' }
-      );
-      console.log('Service Worker registrado con éxito:', registration);
-    } catch (error) {
-      console.error('Error al registrar el Service Worker:', error);
-    }
-  });
-}
+  </React.StrictMode>
+);

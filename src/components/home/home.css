@@ -1,0 +1,285 @@
+/* Estilos específicos para el componente Home */
+
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Sección Hero */
+.home-hero-section {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 2rem 1rem 4rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-hero-section::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(52, 152, 219, 0.1);
+  z-index: 0;
+}
+
+/* Contenedor de la imagen hero */
+.home-hero-image-container {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  padding: 0 20px;
+}
+
+.home-hero-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Frase debajo de la imagen */
+.home-tagline {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin: 2rem auto;
+  max-width: 800px;
+  line-height: 1.4;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+/* Call to action primario */
+.home-cta-primary {
+  margin: 2.5rem auto;
+  display: inline-block;
+}
+
+.home-cta-link {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.home-cta-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+}
+
+.home-hero-section::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: -30px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(52, 152, 219, 0.05);
+  z-index: 0;
+}
+
+.home-main-title {
+  font-size: 2.8rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+  letter-spacing: -0.5px;
+}
+
+.home-description {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.home-description-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #5a6a7e;
+  margin-bottom: 0.8rem;
+}
+
+/* Sección de características */
+.home-features-section {
+  margin-bottom: 4rem;
+}
+
+.home-features-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
+.home-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.home-feature-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.home-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  border-color: rgba(52, 152, 219, 0.2);
+}
+
+.home-feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.home-feature-title {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.home-feature-description {
+  color: #5a6a7e;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Sección de llamada a la acción */
+.home-cta-section {
+  text-align: center;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  padding: 4rem 1rem;
+  border-radius: 12px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+.home-cta-title {
+  font-size: 2.2rem;
+  color: white;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+  font-weight: 700;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.home-cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.home-cta-button {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.home-cta-primary {
+  background-color: white;
+  color: #3498db;
+}
+
+.home-cta-primary:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.home-cta-secondary {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid white;
+}
+
+.home-cta-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .home-tagline {
+    font-size: 1.5rem;
+  }
+  
+  .home-cta-link {
+    padding: 0.9rem 2rem;
+    font-size: 1.1rem;
+  }
+  
+  .home-features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .home-cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .home-cta-button {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-tagline {
+    font-size: 1.3rem;
+  }
+  
+  .home-hero-section,
+  .home-features-section,
+  .home-cta-section {
+    padding: 1.5rem 0.8rem;
+  }
+  
+  .home-cta-link {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}
