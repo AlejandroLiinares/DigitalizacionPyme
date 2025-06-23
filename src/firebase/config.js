@@ -1,19 +1,36 @@
 // Configuración de Firebase para la aplicación React
 // Este archivo proporciona acceso a los servicios de Firebase, especialmente Firestore
 
-// Accedemos a la instancia de Firebase ya inicializada en index.html
-const firebaseApp = window.firebase;
-const db = firebaseApp.firestore();
+// Importamos las funciones necesarias de los SDK de Firebase
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, serverTimestamp } from "firebase/firestore";
+
+// Configuración de Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyDldkebUj7s2-Ej8sOauImGD837IedrW8s",
+  authDomain: "digitalizacionpyme-fae73.firebaseapp.com",
+  projectId: "digitalizacionpyme-fae73",
+  storageBucket: "digitalizacionpyme-fae73.firebasestorage.app",
+  messagingSenderId: "271434112035",
+  appId: "1:271434112035:web:76885970c48baa5d226596"
+};
+
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+
+// Obtener instancia de Firestore
+const db = getFirestore(app);
 
 // Exportamos la instancia de Firestore para usarla en los componentes
 export { db };
 
 // Función de utilidad para agregar un documento a una colección
-export const addDocument = async (collection, data) => {
+export const addDocument = async (collectionName, data) => {
   try {
-    const docRef = await db.collection(collection).add({
+    const collectionRef = collection(db, collectionName);
+    const docRef = await addDoc(collectionRef, {
       ...data,
-      createdAt: firebaseApp.firestore.FieldValue.serverTimestamp()
+      createdAt: serverTimestamp()
     });
     return { id: docRef.id, ...data };
   } catch (error) {
@@ -23,9 +40,10 @@ export const addDocument = async (collection, data) => {
 };
 
 // Función de utilidad para obtener documentos de una colección
-export const getDocuments = async (collection) => {
+export const getDocuments = async (collectionName) => {
   try {
-    const snapshot = await db.collection(collection).get();
+    const collectionRef = collection(db, collectionName);
+    const snapshot = await getDocs(collectionRef);
     return snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
@@ -37,11 +55,12 @@ export const getDocuments = async (collection) => {
 };
 
 // Función de utilidad para actualizar un documento
-export const updateDocument = async (collection, id, data) => {
+export const updateDocument = async (collectionName, id, data) => {
   try {
-    await db.collection(collection).doc(id).update({
+    const docRef = doc(db, collectionName, id);
+    await updateDoc(docRef, {
       ...data,
-      updatedAt: firebaseApp.firestore.FieldValue.serverTimestamp()
+      updatedAt: serverTimestamp()
     });
     return { id, ...data };
   } catch (error) {
@@ -51,9 +70,10 @@ export const updateDocument = async (collection, id, data) => {
 };
 
 // Función de utilidad para eliminar un documento
-export const deleteDocument = async (collection, id) => {
+export const deleteDocument = async (collectionName, id) => {
   try {
-    await db.collection(collection).doc(id).delete();
+    const docRef = doc(db, collectionName, id);
+    await deleteDoc(docRef);
     return id;
   } catch (error) {
     console.error("Error al eliminar documento:", error);

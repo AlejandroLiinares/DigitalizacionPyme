@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
+// Importamos la configuración de Firebase
+import './firebase/config';
 import Home from './components/home/home';
 import Servicios from './components/servicios/servicios';
 import Contacto from './components/contacto/contacto';
